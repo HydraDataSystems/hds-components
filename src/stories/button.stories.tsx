@@ -18,7 +18,7 @@ export const White = Template.bind({});
 
 Primary.args = {
   btnStyle: "primary",
-  title: "Primary",
+  title: "Primary"
 };
 
 Secondary.args = {
