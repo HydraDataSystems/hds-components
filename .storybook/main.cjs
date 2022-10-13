@@ -14,5 +14,9 @@ module.exports = {
   },
   "features": {
     "storyStoreV7": true
+  },
+  webpackFinal: async (config) => {
+    config.output.publicPath = "https://cascade-care.github.io/cascade-care-components/";
+    return config;
   }
 }
