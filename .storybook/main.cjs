@@ -16,7 +16,9 @@ module.exports = {
     "storyStoreV7": true
   },
   viteFinal: async (config) => {
-    config.base = "https://cascade-care.github.io/cascade-care-components/";
+    if(process.env.GH_PAGES) {
+      config.base = "https://cascade-care.github.io/cascade-care-components/";
+    }
     return config;
   }
 }
