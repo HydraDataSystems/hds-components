@@ -16,7 +16,7 @@ module.exports = {
     "storyStoreV7": true
   },
   viteFinal: async (config) => {
-    config.output.publicPath = "https://cascade-care.github.io/cascade-care-components/";
+    config.output.base = "https://cascade-care.github.io/cascade-care-components/";
     return config;
   }
 }
