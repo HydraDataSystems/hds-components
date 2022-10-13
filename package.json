@@ -5,6 +5,7 @@
   "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
+  "homepage": "https://cascade-care.github.io/cascade-care-components/",
   "exports": {
     ".": {
       "require": "./dist/index.cjs.js",
