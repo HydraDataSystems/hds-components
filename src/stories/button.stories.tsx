@@ -8,7 +8,7 @@ export default {
 
 const Template: Story<ButtonProps> = (args) => {
   return (
-    <Button {...args}>Button</Button>
+    <Button {...args} />
   )
 }
 
