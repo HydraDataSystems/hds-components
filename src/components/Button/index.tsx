@@ -8,7 +8,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: () => void;
 }
 
-enum SizeClass {
+export enum SizeClass {
   xs = "c-px-2.5 c-py-1.5 c-text-xs c-font-medium",
   sm = "c-px-3 c-py-2 c-text-sm c-font-medium",
   md = "c-px-4 c-py-2 c-text-sm c-font-medium",
@@ -16,14 +16,14 @@ enum SizeClass {
   xl = "c-px-6 c-py-3 c-text-base c-font-medium"
 }
 
-enum BtnStyle {
+export enum BtnStyle {
   primary = "c-border-transparent c-bg-indigo-600 c-text-white hover:c-bg-indigo-700 ",
   secondary = "c-border-transparent c-bg-indigo-100 c-text-indigo-700 hover:c-bg-indigo-200",
   white = "c-border-gray-300 c-bg-white c-text-gray-700 hover:c-bg-gray-50"
 }
 
-const BASE_CLASS = "c-inline-flex c-items-center c-rounded c-border c-shadow-sm focus:c-outline-none focus:c-ring-2 focus:c-ring-indigo-500 focus:c-ring-offset-2";
-const DISABLED_CLASS = "c-border-transparent c-bg-gray-100 c-cursor-not-allowed c-text-gray-300";
+export const BASE_CLASS = "c-inline-flex c-items-center c-rounded c-border c-shadow-sm focus:c-outline-none focus:c-ring-2 focus:c-ring-indigo-500 focus:c-ring-offset-2";
+export const DISABLED_CLASS = "c-border-transparent c-bg-gray-100 c-cursor-not-allowed c-text-gray-300";
 
 const Button = ({ 
   title, size = "md", 
