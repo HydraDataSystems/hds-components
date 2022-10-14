@@ -21,6 +21,9 @@ export const Disabled = Template.bind({});
 export const ExtraClasses = Template.bind({});
 export const WithLeadingIcon = Template.bind({});
 export const WithTrailingIcon = Template.bind({});
+export const WithLeadingSpinner = Template.bind({});
+export const WithTrailingSpinner = Template.bind({});
+export const WithLoadingSpinner = Template.bind({});
 
 Primary.args = {
   btnStyle: "primary",
@@ -59,4 +62,21 @@ ExtraClasses.args = {
   btnStyle: "primary",
   title: "Extra Class",
   className: "margin-top",
+}
+
+WithLeadingSpinner.args = {
+  title: "Leading Spinner",
+  busy: true,
+  LeadingIcon: MdOutgoingMail
+}
+
+WithTrailingSpinner.args = {
+  title: "Trailing Spinner",
+  busy: true,
+  TrailingIcon: MdOutgoingMail
+}
+
+WithLoadingSpinner.args = {
+  title: "With Loading Only",
+  busy: true
 }

@@ -1,5 +1,6 @@
-import { ButtonHTMLAttributes, ComponentType } from 'react';
+import { ButtonHTMLAttributes, ComponentType, useCallback } from 'react';
 import { classNames } from '../../helpers';
+import { CgSpinner } from 'react-icons/cg';
 
 interface IconProps {
   className?: string
@@ -7,6 +8,8 @@ interface IconProps {
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
+  busy?: boolean;
+  busyText?: string;
   size?: keyof typeof SizeClass;
   btnStyle?: keyof typeof BtnStyle;
   onClick?: () => void;
@@ -30,36 +33,51 @@ export enum BtnStyle {
 
 export const BASE_CLASS = "c-inline-flex c-items-center c-rounded c-border c-shadow-sm focus:c-outline-none focus:c-ring-2 focus:c-ring-indigo-500 focus:c-ring-offset-2";
 export const DISABLED_CLASS = "c-border-transparent c-bg-gray-100 c-cursor-not-allowed c-text-gray-300";
+export const BUSY_CLASS = "c-border-transparent c-bg-gray-300 c-cursor-not-allowed c-text-gray-600";
 
 const Button = ({ 
   title, size = "md", 
   btnStyle = "primary",
+  busy = false,
+  busyText = "Loading...",
   LeadingIcon,
   TrailingIcon,
   disabled,
   className, 
   ...props }: ButtonProps) => {
+  
+  const renderIcon = useCallback((leading: boolean, Component: ComponentType<IconProps>) => {
+    return (
+      <Component className={
+        classNames(
+          leading ? "c-mr-2" : "c-ml-2",
+          (size === "xs") ? "c-text-sm" : '',
+          (size === "sm") ? "c-text-lg" : '',
+          (size === "md") ? "c-text-lg" : '',
+          (size === "lg") ? "c-text-xl" : '', 
+          (size === "xl") ? "c-text-2xl" : '',
+          busy ? "c-animate-spin" : ''
+      )} />
+    )
+  }, [busy, LeadingIcon, TrailingIcon]);
+
   return (
     <button 
       {...props}
-      disabled={disabled}
+      disabled={(disabled) ? true : busy ? true : false}
       className={classNames(
         BASE_CLASS,
         SizeClass[size],
-        disabled ? DISABLED_CLASS : BtnStyle[btnStyle],
+        disabled ? DISABLED_CLASS : busy ? BUSY_CLASS : BtnStyle[btnStyle],
         className ? className : ''
       )}>
-        {LeadingIcon && <LeadingIcon className={
-          classNames(
-            "c-mr-2",
-            (size === "xs") ? "c-text-sm" : '',
-            (size === "sm") ? "c-text-lg" : '',
-            (size === "md") ? "c-text-lg" : '',
-            (size === "lg") ? "c-text-xl" : '', 
-            (size === "xl") ? "c-text-2xl" : ''
-        )} />}
-        {title}
-        {TrailingIcon && <TrailingIcon className={
+        {busy && !LeadingIcon && !TrailingIcon && renderIcon(true, CgSpinner)}
+        {LeadingIcon && !busy && renderIcon(true, LeadingIcon)}
+        {LeadingIcon && busy && renderIcon(true, CgSpinner)}
+        {busy ? busyText : title}
+        {TrailingIcon && !busy && renderIcon(false, TrailingIcon)}
+        {TrailingIcon && busy && renderIcon(false, CgSpinner)}
+        {/* {TrailingIcon && <TrailingIcon className={
           classNames(
             "c-ml-2",
             (size === "xs") ? "c-text-sm" : '',
@@ -67,7 +85,7 @@ const Button = ({
             (size === "md") ? "c-text-lg" : '',
             (size === "lg") ? "c-text-xl" : '', 
             (size === "xl") ? "c-text-2xl" : ''
-        )} />}
+        )} />} */}
       </button>
   )
 }
