@@ -75,4 +75,10 @@ test('render with leading icon', () => {
   render(<Button title="Leading" LeadingIcon={MdOutgoingMail} />)
   const container = screen.getByRole('button');
   expect(container.firstChild instanceof SVGElement).toBe(true);
+});
+
+test('render with trailing icon', () => {
+  render(<Button title="Trailing" TrailingIcon={MdOutgoingMail} />)
+  const container = screen.getByRole('button');
+  expect(container.lastChild instanceof SVGElement).toBe(true);
 })
