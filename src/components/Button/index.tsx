@@ -1,11 +1,17 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, ComponentType } from 'react';
 import { classNames } from '../../helpers';
+
+interface IconProps {
+  className?: string
+}
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   size?: keyof typeof SizeClass;
   btnStyle?: keyof typeof BtnStyle;
   onClick?: () => void;
+  LeadingIcon?: ComponentType<IconProps>;
+  TrailingIcon?: ComponentType<IconProps>;
 }
 
 export enum SizeClass {
@@ -28,6 +34,8 @@ export const DISABLED_CLASS = "c-border-transparent c-bg-gray-100 c-cursor-not-a
 const Button = ({ 
   title, size = "md", 
   btnStyle = "primary",
+  LeadingIcon,
+  TrailingIcon,
   disabled,
   className, 
   ...props }: ButtonProps) => {
@@ -40,7 +48,27 @@ const Button = ({
         SizeClass[size],
         disabled ? DISABLED_CLASS : BtnStyle[btnStyle],
         className ? className : ''
-      )}>{title}</button>
+      )}>
+        {LeadingIcon && <LeadingIcon className={
+          classNames(
+            "c-mr-2",
+            (size === "xs") ? "c-text-sm" : '',
+            (size === "sm") ? "c-text-lg" : '',
+            (size === "md") ? "c-text-lg" : '',
+            (size === "lg") ? "c-text-xl" : '', 
+            (size === "xl") ? "c-text-2xl" : ''
+        )} />}
+        {title}
+        {TrailingIcon && <TrailingIcon className={
+          classNames(
+            "c-ml-2",
+            (size === "xs") ? "c-text-sm" : '',
+            (size === "sm") ? "c-text-lg" : '',
+            (size === "md") ? "c-text-lg" : '',
+            (size === "lg") ? "c-text-xl" : '', 
+            (size === "xl") ? "c-text-2xl" : ''
+        )} />}
+      </button>
   )
 }
 

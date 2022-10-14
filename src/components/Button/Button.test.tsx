@@ -2,6 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import Button, { BtnStyle, SizeClass } from './index';
+import { MdOutgoingMail } from 'react-icons/md';
 
 test('renders button with correct Title', () => {
   render(<Button title="Default" />);
@@ -69,3 +70,9 @@ test('rendered button should take extra class names', () => {
   render(<Button title="ExtraClasses" className='c-mt-1' />);
   expect(screen.getByRole('button')).toHaveClass('c-mt-1');
 });
+
+test('render with leading icon', () => {
+  render(<Button title="Leading" LeadingIcon={MdOutgoingMail} />)
+  const container = screen.getByRole('button');
+  expect(container.firstChild instanceof SVGElement).toBe(true);
+})
