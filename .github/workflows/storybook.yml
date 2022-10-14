@@ -15,6 +15,7 @@ jobs:
         run: |
           npm ci
           GH_PAGES=true npm run build-storybook
+          npm test
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.6.2

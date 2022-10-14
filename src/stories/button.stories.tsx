@@ -3,7 +3,8 @@ import Button, { ButtonProps } from "../components/Button";
 
 export default {
   component: Button,
-  title: 'Cascade/Buttons'
+  title: 'Cascade/Buttons',
+  argTypes: { onClick: { action: 'clicked' }}
 } as Meta;
 
 const Template: Story<ButtonProps> = (args) => {
