@@ -64,3 +64,8 @@ test('rendered button should be extra large', () => {
   render(<Button title="Xl" size="xl" />);
   expect(screen.getByRole('button')).toHaveClass(SizeClass.xl);
 });
+
+test('rendered button should take extra class names', () => {
+  render(<Button title="ExtraClasses" className='c-mt-1' />);
+  expect(screen.getByRole('button')).toHaveClass('c-mt-1');
+});

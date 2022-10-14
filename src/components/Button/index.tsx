@@ -28,7 +28,8 @@ export const DISABLED_CLASS = "c-border-transparent c-bg-gray-100 c-cursor-not-a
 const Button = ({ 
   title, size = "md", 
   btnStyle = "primary",
-  disabled, 
+  disabled,
+  className, 
   ...props }: ButtonProps) => {
   return (
     <button 
@@ -38,6 +39,7 @@ const Button = ({
         BASE_CLASS,
         SizeClass[size],
         disabled ? DISABLED_CLASS : BtnStyle[btnStyle],
+        className ? className : ''
       )}>{title}</button>
   )
 }
