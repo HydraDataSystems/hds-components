@@ -5,6 +5,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   size?: keyof typeof SizeClass;
   btnStyle?: keyof typeof BtnStyle;
+  onClick?: () => void;
 }
 
 enum SizeClass {
@@ -22,15 +23,21 @@ enum BtnStyle {
 }
 
 const BASE_CLASS = "c-inline-flex c-items-center c-rounded c-border c-shadow-sm focus:c-outline-none focus:c-ring-2 focus:c-ring-indigo-500 focus:c-ring-offset-2";
+const DISABLED_CLASS = "c-border-transparent c-bg-gray-100 c-cursor-not-allowed c-text-gray-300";
 
-const Button = ({ title, size = "md", btnStyle = "primary", ...props }: ButtonProps) => {
+const Button = ({ 
+  title, size = "md", 
+  btnStyle = "primary",
+  disabled, 
+  ...props }: ButtonProps) => {
   return (
     <button 
       {...props}
+      disabled={disabled}
       className={classNames(
         BASE_CLASS,
         SizeClass[size],
-        BtnStyle[btnStyle]
+        disabled ? DISABLED_CLASS : BtnStyle[btnStyle],
       )}>{title}</button>
   )
 }
