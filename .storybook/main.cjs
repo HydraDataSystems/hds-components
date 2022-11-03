@@ -17,7 +17,7 @@ module.exports = {
   },
   viteFinal: async (config) => {
     if(process.env.GH_PAGES) {
-      config.base = "https://cascade-care.github.io/cascade-care-components/";
+      config.base = "https://hydradatasystems.github.io/hds-components/";
     }
     return config;
   }

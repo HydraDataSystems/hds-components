@@ -1,5 +1,5 @@
 {
-  "name": "cascade-care-components",
+  "name": "@hydradatasystems/hds-components",
   "version": "0.0.0",
   "engines": {
     "node": ">=16.17.1",
@@ -7,7 +7,7 @@
   },
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "homepage": "https://cascade-care.github.io/cascade-care-components/",
+  "homepage": "https://hydradatasystems.github.io/hds-components/",
   "exports": {
     ".": {
       "require": "./dist/index.cjs.js",
@@ -35,12 +35,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
-    "@storybook/addon-actions": "^6.5.12",
-    "@storybook/addon-essentials": "^6.5.12",
-    "@storybook/addon-interactions": "^6.5.12",
-    "@storybook/addon-links": "^6.5.12",
-    "@storybook/builder-vite": "^0.2.4",
-    "@storybook/react": "^6.5.12",
+    "@storybook/addon-actions": "^6.5.13",
+    "@storybook/addon-essentials": "^6.5.13",
+    "@storybook/addon-interactions": "^6.5.13",
+    "@storybook/addon-links": "^6.5.13",
+    "@storybook/builder-vite": "^0.2.5",
+    "@storybook/react": "^6.5.13",
     "@storybook/testing-library": "^0.0.13",
     "@storybook/testing-react": "^1.3.0",
     "@testing-library/jest-dom": "^5.16.5",
