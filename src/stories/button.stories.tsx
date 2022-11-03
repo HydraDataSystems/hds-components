@@ -4,7 +4,7 @@ import { MdOutgoingMail } from 'react-icons/md';
 
 export default {
   component: Button,
-  title: 'Cascade/Buttons',
+  title: 'HDS/Buttons',
   argTypes: { onClick: { action: 'clicked' }}
 } as Meta;
 
