@@ -1,4 +1,4 @@
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import Button, { ButtonProps } from "../components/Button";
 import { MdOutgoingMail } from 'react-icons/md';
 
@@ -8,7 +8,7 @@ export default {
   argTypes: { onClick: { action: 'clicked' }}
 } as Meta;
 
-const Template: Story<ButtonProps> = (args) => {
+const Template: StoryFn<ButtonProps> = (args) => {
   return (
     <Button {...args} />
   )

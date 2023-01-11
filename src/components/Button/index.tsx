@@ -18,22 +18,22 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export enum SizeClass {
-  xs = "c-px-2.5 c-py-1.5 c-text-xs c-font-medium",
-  sm = "c-px-3 c-py-2 c-text-sm c-font-medium",
-  md = "c-px-4 c-py-2 c-text-sm c-font-medium",
-  lg = "c-px-4 c-py-2 c-text-base c-font-medium",
-  xl = "c-px-6 c-py-3 c-text-base c-font-medium"
+  xs = "px-2.5 py-1.5 text-xs font-medium",
+  sm = "px-3 py-2 text-sm font-medium",
+  md = "px-4 py-2 text-sm font-medium",
+  lg = "px-4 py-2 text-base font-medium",
+  xl = "px-6 py-3 text-base font-medium"
 }
 
 export enum BtnStyle {
-  primary = "c-border-transparent c-bg-indigo-600 c-text-white hover:c-bg-indigo-700 ",
-  secondary = "c-border-transparent c-bg-indigo-100 c-text-indigo-700 hover:c-bg-indigo-200",
-  white = "c-border-gray-300 c-bg-white c-text-gray-700 hover:c-bg-gray-50"
+  primary = "border-transparent bg-indigo-600 text-white hover:bg-indigo-700 ",
+  secondary = "border-transparent bg-indigo-100 text-indigo-700 hover:bg-indigo-200",
+  white = "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
 }
 
-export const BASE_CLASS = "c-inline-flex c-items-center c-rounded c-border c-shadow-sm focus:c-outline-none focus:c-ring-2 focus:c-ring-indigo-500 focus:c-ring-offset-2";
-export const DISABLED_CLASS = "c-border-transparent c-bg-gray-100 c-cursor-not-allowed c-text-gray-300";
-export const BUSY_CLASS = "c-border-transparent c-bg-gray-300 c-cursor-not-allowed c-text-gray-600";
+export const BASE_CLASS = "inline-flex items-center rounded border shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2";
+export const DISABLED_CLASS = "border-transparent bg-gray-100 cursor-not-allowed text-gray-300";
+export const BUSY_CLASS = "border-transparent bg-gray-300 cursor-not-allowed text-gray-600";
 
 const Button = ({ 
   title, size = "md", 
@@ -50,13 +50,13 @@ const Button = ({
     return (
       <Component className={
         classNames(
-          leading ? "c-mr-2" : "c-ml-2",
-          (size === "xs") ? "c-text-sm" : '',
-          (size === "sm") ? "c-text-lg" : '',
-          (size === "md") ? "c-text-lg" : '',
-          (size === "lg") ? "c-text-xl" : '', 
-          (size === "xl") ? "c-text-2xl" : '',
-          busy ? "c-animate-spin" : ''
+          leading ? "mr-2" : "ml-2",
+          (size === "xs") ? "text-sm" : '',
+          (size === "sm") ? "text-lg" : '',
+          (size === "md") ? "text-lg" : '',
+          (size === "lg") ? "text-xl" : '', 
+          (size === "xl") ? "text-2xl" : '',
+          busy ? "animate-spin" : ''
       )} />
     )
   }, [busy, LeadingIcon, TrailingIcon]);
@@ -79,12 +79,12 @@ const Button = ({
         {TrailingIcon && busy && renderIcon(false, CgSpinner)}
         {/* {TrailingIcon && <TrailingIcon className={
           classNames(
-            "c-ml-2",
-            (size === "xs") ? "c-text-sm" : '',
-            (size === "sm") ? "c-text-lg" : '',
-            (size === "md") ? "c-text-lg" : '',
-            (size === "lg") ? "c-text-xl" : '', 
-            (size === "xl") ? "c-text-2xl" : ''
+            "ml-2",
+            (size === "xs") ? "text-sm" : '',
+            (size === "sm") ? "text-lg" : '',
+            (size === "md") ? "text-lg" : '',
+            (size === "lg") ? "text-xl" : '', 
+            (size === "xl") ? "text-2xl" : ''
         )} />} */}
       </button>
   )

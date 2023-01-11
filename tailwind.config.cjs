@@ -8,6 +8,5 @@ module.exports = {
   plugins: [],
   corePlugins: {
     preflight: false,
-  },
-  prefix: 'c-'
+  }
 }
