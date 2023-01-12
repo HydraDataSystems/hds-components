@@ -16,7 +16,7 @@ export default defineConfig({
     lib: {
       name: 'HdsComponents',
       entry: resolve('src', 'index.ts'),
-      formats: ['es', 'umd'],
+      formats: ['es', 'cjs'],
       fileName: (ext) => `index.${ext}.js`,
       // name: 'GlobalName' <-- for UMD 
     },
