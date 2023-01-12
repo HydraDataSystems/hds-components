@@ -8,7 +8,7 @@
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
-  "homepage": "https://hydradatasystems.github.io/hds-components/",
+  "homepage": "https://hydradatasystems.github.io/hds-components",
   "exports": {
     ".": {
       "require": "./dist/index.umd.js",
