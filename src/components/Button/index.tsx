@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, ComponentType, useCallback } from 'react';
+import { ButtonHTMLAttributes, ComponentType, useCallback, forwardRef, Ref } from 'react';
 import { classNames } from '../../helpers';
 import { CgSpinner } from 'react-icons/cg';
 
@@ -10,6 +10,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   busy?: boolean;
   busyText?: string;
+  type?: "submit" | "reset" | "button",
   size?: keyof typeof SizeClass;
   btnStyle?: keyof typeof BtnStyle;
   onClick?: () => void;
@@ -31,12 +32,14 @@ export enum BtnStyle {
   white = "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
 }
 
-export const BASE_CLASS = "inline-flex items-center rounded border shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2";
+export const BASE_CLASS = "inline-flex items-center justify-center rounded border shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2";
 export const DISABLED_CLASS = "border-transparent bg-gray-100 cursor-not-allowed text-gray-300";
 export const BUSY_CLASS = "border-transparent bg-gray-300 cursor-not-allowed text-gray-600";
 
-const Button = ({ 
-  title, size = "md", 
+const Button = forwardRef(({ 
+  title, 
+  size = "md",
+  type = "button", 
   btnStyle = "primary",
   busy = false,
   busyText = "Loading...",
@@ -44,7 +47,7 @@ const Button = ({
   TrailingIcon,
   disabled,
   className, 
-  ...props }: ButtonProps) => {
+  ...props }: ButtonProps, ref: Ref<HTMLButtonElement>) => {
   
   const renderIcon = useCallback((leading: boolean, Component: ComponentType<IconProps>) => {
     return (
@@ -64,6 +67,7 @@ const Button = ({
   return (
     <button 
       {...props}
+      ref={ref}
       disabled={(disabled) ? true : busy ? true : false}
       className={classNames(
         BASE_CLASS,
@@ -77,17 +81,8 @@ const Button = ({
         {busy ? busyText : title}
         {TrailingIcon && !busy && renderIcon(false, TrailingIcon)}
         {TrailingIcon && busy && renderIcon(false, CgSpinner)}
-        {/* {TrailingIcon && <TrailingIcon className={
-          classNames(
-            "ml-2",
-            (size === "xs") ? "text-sm" : '',
-            (size === "sm") ? "text-lg" : '',
-            (size === "md") ? "text-lg" : '',
-            (size === "lg") ? "text-xl" : '', 
-            (size === "xl") ? "text-2xl" : ''
-        )} />} */}
       </button>
   )
-}
+});
 
 export default Button;
