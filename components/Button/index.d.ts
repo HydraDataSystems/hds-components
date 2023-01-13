@@ -1,3 +1,4 @@
+import React from 'react';
 import { ButtonHTMLAttributes, ComponentType } from 'react';
 interface IconProps {
     className?: string;
@@ -6,6 +7,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     title: string;
     busy?: boolean;
     busyText?: string;
+    type?: "submit" | "reset" | "button";
     size?: keyof typeof SizeClass;
     btnStyle?: keyof typeof BtnStyle;
     onClick?: () => void;
@@ -24,9 +26,9 @@ export declare enum BtnStyle {
     secondary = "border-transparent bg-indigo-100 text-indigo-700 hover:bg-indigo-200",
     white = "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
 }
-export declare const BASE_CLASS = "inline-flex items-center rounded border shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2";
+export declare const BASE_CLASS = "inline-flex items-center justify-center rounded border shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2";
 export declare const DISABLED_CLASS = "border-transparent bg-gray-100 cursor-not-allowed text-gray-300";
 export declare const BUSY_CLASS = "border-transparent bg-gray-300 cursor-not-allowed text-gray-600";
-declare const Button: ({ title, size, btnStyle, busy, busyText, LeadingIcon, TrailingIcon, disabled, className, ...props }: ButtonProps) => JSX.Element;
+declare const Button: React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>>;
 export default Button;
 //# sourceMappingURL=index.d.ts.map
