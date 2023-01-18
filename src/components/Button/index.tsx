@@ -68,6 +68,7 @@ const Button = forwardRef(({
     <button 
       {...props}
       ref={ref}
+      type={type}
       disabled={(disabled) ? true : busy ? true : false}
       className={classNames(
         BASE_CLASS,
