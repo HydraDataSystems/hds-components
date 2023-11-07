@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import Button, { ButtonProps } from "../components/Button";
+import { Button, ButtonProps } from "../index";
 import { MdOutgoingMail } from 'react-icons/md';
 
 export default {
