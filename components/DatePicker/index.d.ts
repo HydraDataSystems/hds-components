@@ -1,5 +1,5 @@
-export declare type DatePickerType = "date" | "month" | "year";
-export declare type DatePickerProps = {
+export type DatePickerType = "date" | "month" | "year";
+export type DatePickerProps = {
     initialDate?: string;
     formName?: string;
     label?: string;
@@ -7,6 +7,6 @@ export declare type DatePickerProps = {
     isActionSelectedDate?: boolean;
     fullWidth?: boolean;
 };
-declare const DatePicker: ({ initialDate, formName, label, onChange, isActionSelectedDate, fullWidth, }: DatePickerProps) => JSX.Element;
+declare const DatePicker: ({ initialDate, formName, label, onChange, isActionSelectedDate, fullWidth, }: DatePickerProps) => import('../../../node_modules/react/jsx-runtime').JSX.Element;
 export default DatePicker;
 //# sourceMappingURL=index.d.ts.map

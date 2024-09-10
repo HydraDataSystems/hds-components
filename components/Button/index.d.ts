@@ -1,5 +1,4 @@
-import React from 'react';
-import { ButtonHTMLAttributes, ComponentType } from 'react';
+import { ButtonHTMLAttributes, ComponentType } from '../../../node_modules/react';
 interface IconProps {
     className?: string;
 }
@@ -29,6 +28,6 @@ export declare enum BtnStyle {
 export declare const BASE_CLASS = "inline-flex items-center justify-center rounded border shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2";
 export declare const DISABLED_CLASS = "border-transparent bg-gray-100 cursor-not-allowed text-gray-300";
 export declare const BUSY_CLASS = "border-transparent bg-gray-300 cursor-not-allowed text-gray-600";
-declare const Button: React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>>;
+declare const Button: import('../../../node_modules/react').ForwardRefExoticComponent<ButtonProps & import('../../../node_modules/react').RefAttributes<HTMLButtonElement>>;
 export default Button;
 //# sourceMappingURL=index.d.ts.map
