@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   jit: true,
   content: ['./src/**/*.{ts,tsx}', './index.html', './src/main.tsx'],
   theme: {

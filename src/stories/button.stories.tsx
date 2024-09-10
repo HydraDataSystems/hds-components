@@ -1,10 +1,14 @@
+import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
+import { fn } from "@storybook/test";
+
 import { Button, ButtonProps } from "../index";
 import { MdOutgoingMail } from 'react-icons/md';
 
 export default {
   component: Button,
   title: 'HDS/Buttons',
+  args: { onClick: fn() },
   argTypes: { onClick: { action: 'clicked' }}
 } as Meta;
 

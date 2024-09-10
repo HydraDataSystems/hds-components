@@ -129,7 +129,7 @@ const DatePicker = ({
       new Date(Date.UTC(
         selectedDate.getFullYear(),
         selectedDate.getMonth(),
-        selectedDate.getDate()
+        selectedDate.getDay()
       ))
     );
   }
