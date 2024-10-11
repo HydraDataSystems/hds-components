@@ -17,7 +17,7 @@ const App = () => {
   const { handleSubmit, formState: { errors } } = methods;
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    return
   };
 
 return (
