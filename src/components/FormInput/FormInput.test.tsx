@@ -59,15 +59,14 @@ describe('FormInput', () => {
     expect(input.getAttribute('autocomplete')).toBe('tel');
   });
 
-it('sets pattern attribute correctly for email type', () => {
+  it('sets pattern attribute correctly for email type', () => {
     render(<FormInput {...defaultProps} type="email" />);
     const input = screen.getByRole('textbox');
-    
+
     const expectedPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.toString();
     const actualPattern = input.getAttribute('pattern');
-    
+
     expect(actualPattern).toBe(expectedPattern);
   });
 
 });
-  
