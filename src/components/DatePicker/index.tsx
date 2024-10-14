@@ -99,6 +99,10 @@ const DatePicker = ({
     setSelectedDate(newDate);
     setDatePickerHeaderDate(newDate);
     setShowDatePicker(false);
+
+    if (onChange) {
+      onChange(format(newDate, "dd-MM-yyyy"));
+    }
   };
 
   const today = () => {
@@ -193,10 +197,6 @@ const DatePicker = ({
   useEffect(() => {
     getDayCount(datePickerHeaderDate);
   }, [datePickerHeaderDate]);
-
-  useEffect(() => {
-    onChange && onChange(selectedDate.toISOString());
-  }, [selectedDate])
 
   useEffect(() => {
     if (isActionSelectedDate) {
