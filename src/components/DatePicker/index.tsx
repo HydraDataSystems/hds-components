@@ -26,9 +26,11 @@ export type DatePickerProps = {
   initialDate?: string,
   formName?: string,
   label?: string,
-  onChange?: (date: string) => void,
+  onChange?: (date: Date) => void,
   isActionSelectedDate?: boolean
   fullWidth?: boolean,
+  show?: boolean;
+  setShow?: (show: boolean) => void;
 }
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -40,13 +42,21 @@ const DatePicker = ({
   onChange,
   isActionSelectedDate = false,
   fullWidth = false,
+  show,
+  setShow,
 }: DatePickerProps) => {
   const [dayCount, setDayCount] = useState<number[]>([]);
   const [blankDays, setBlankDays] = useState<number[]>([]);
-  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(show || false);
   const [datePickerHeaderDate, setDatePickerHeaderDate] = useState<Date>(initialDate ? new Date(initialDate) : new Date());
   const [selectedDate, setSelectedDate] = useState<Date>(initialDate ? new Date(initialDate) : new Date());
   const [type, setType] = useState<DatePickerType>("date");
+
+  useEffect(() => {
+    if (show !== undefined) {
+      setShowDatePicker(show);
+    }
+  }, [show]);
 
   const {
     x, y, refs, strategy
@@ -101,7 +111,7 @@ const DatePicker = ({
     setShowDatePicker(false);
 
     if (onChange) {
-      onChange(format(newDate, "dd-MM-yyyy"));
+      onChange(newDate);
     }
   };
 
@@ -188,7 +198,13 @@ const DatePicker = ({
     return yearsArray;
   }
 
-  const toggleDatepicker = () => setShowDatePicker((prev) => !prev);
+  const toggleDatepicker = () => {
+    const newShow = !showDatePicker;
+    setShowDatePicker(newShow);
+    if (setShow) {
+      setShow(newShow);
+    }
+  };
 
   const showMonthPicker = () => setType("month");
 
@@ -207,9 +223,9 @@ const DatePicker = ({
   }, [isActionSelectedDate]);
 
   return (
-    <div className="antialiased sans-serif" >
+    <div className="antialiased sans-serif" ref={refs.setReference} onClick={toggleDatepicker} >
       <div className={fullWidth ? 'w-full' : 'w-40'}>
-        <label className="font-bold mb-1 text-grey-700 block">{label ?? "Select Date"}</label>
+        {label && <label>{label}</label>}
         <div ref={refs.setReference} className="relative flex" >
           <input type="hidden" name={formName ?? "date"} value={selectedDate.toISOString()} />
           <input
