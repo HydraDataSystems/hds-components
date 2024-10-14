@@ -1,7 +1,8 @@
-import { 
-  useState, 
+import {
+  useState,
   useEffect,
-  useCallback } from "react";
+  useCallback
+} from "react";
 
 import {
   format,
@@ -27,7 +28,7 @@ export type DatePickerProps = {
   label?: string,
   onChange?: (date: string) => void,
   isActionSelectedDate?: boolean
-  fullWidth?: boolean
+  fullWidth?: boolean,
 }
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -87,7 +88,7 @@ const DatePicker = ({
   }, [type]);
 
   const setDateValue = (date: number) => () => {
-    setSelectedDate(
+    const newDate = new Date(
       new Date(
         Date.UTC(
           datePickerHeaderDate.getFullYear(),
@@ -95,6 +96,8 @@ const DatePicker = ({
           date
         ))
     );
+    setSelectedDate(newDate);
+    setDatePickerHeaderDate(newDate);
     setShowDatePicker(false);
   };
 
@@ -109,10 +112,10 @@ const DatePicker = ({
     let dayOfWeek = getDay(new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1)));
     let blankDaysArray = [];
     let daysArray = [];
-    for(let i = 1; i <= dayOfWeek; i++) {
+    for (let i = 1; i <= dayOfWeek; i++) {
       blankDaysArray.push(i);
     }
-    for(let i = 1; i <= daysInMonth; i++) {
+    for (let i = 1; i <= daysInMonth; i++) {
       daysArray.push(i);
     }
     setBlankDays(blankDaysArray);
@@ -129,7 +132,7 @@ const DatePicker = ({
       new Date(Date.UTC(
         selectedDate.getFullYear(),
         selectedDate.getMonth(),
-        selectedDate.getDay()
+        selectedDate.getDate()
       ))
     );
   }
@@ -175,7 +178,7 @@ const DatePicker = ({
     let start = current - 6;
 
     let yearsArray = [];
-    for(let i = 1; i <= 12; i++) {
+    for (let i = 1; i <= 12; i++) {
       yearsArray.push(start + i);
     }
     return yearsArray;
@@ -380,7 +383,7 @@ const DatePicker = ({
                       style={{ width: "25%" }}
                     >
                       <div
-                              className={`cursor-pointer p-5 font-semibold text-center text-sm rounded-lg hover:bg-gray-200 ${isSelectedMonth(i)
+                        className={`cursor-pointer p-5 font-semibold text-center text-sm rounded-lg hover:bg-gray-200 ${isSelectedMonth(i)
                           ? "bg-blue-500 text-white"
                           : "text-gray-700 hover:bg-blue-200"
                           }`}
@@ -413,7 +416,7 @@ const DatePicker = ({
                           : "text-gray-700 hover:bg-blue-200"
                           }`}
                       >
-                     {year}
+                        {year}
                       </div>
                     </div>
                   ))
