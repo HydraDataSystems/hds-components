@@ -52,10 +52,10 @@ const DatePicker = ({
     x, y, refs, strategy
   } = useFloating({
     whileElementsMounted: autoUpdate,
-    placement: "left",
+    placement: "bottom-start",
     strategy: "fixed",
     middleware: [offset({
-      mainAxis: -270, crossAxis: 160
+      mainAxis: 10
     }), flip(), shift()]
   });
 
@@ -204,10 +204,10 @@ const DatePicker = ({
       setSelectedDate(initialDate ? new Date(initialDate) : new Date());
     }
 
-  }, [isActionSelectedDate])
+  }, [isActionSelectedDate]);
 
   return (
-    <div className="antialiased sans-serif">
+    <div className="antialiased sans-serif" >
       <div className={fullWidth ? 'w-full' : 'w-40'}>
         <label className="font-bold mb-1 text-grey-700 block">{label ?? "Select Date"}</label>
         <div ref={refs.setReference} className="relative flex" >
@@ -245,7 +245,7 @@ const DatePicker = ({
           <div
             ref={refs.setFloating}
             className="bg-white rounded-lg shadow p-4 absolute z-50"
-            style={{ top: y ?? 0, left: x ?? 0, position: strategy, width: "17rem" }}
+            style={{ top: y ?? 0, left: x ?? 0, position: strategy, width: "17rem", minHeight: "17rem", maxHeight: "auto" }}
           >
             <div className="flex justify-between items-center mb-2">
               <button
