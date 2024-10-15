@@ -1,4 +1,5 @@
 import React from "react";
+import "./index.css";
 import DatePicker from "./components/DatePicker";
 import Button from "./components/Button";
 import Accordion from "./components/Accordion";
@@ -6,7 +7,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import FormInput from "./components/FormInput";
 import ReactDOM from "react-dom/client";
 import Badge from "./components/Badge";
-import FormDatePicker from "./components/FormDatePicker/FormDatePicker";
+import FormDatePicker from "./components/FormDatePicker";
 
 const App = () => {
   const methods = useForm({
@@ -64,7 +65,7 @@ const App = () => {
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-4 p-4"
+            className="flex flex-col gap-4 px-4"
           >
             <FormInput
               label="Test Input"
@@ -95,26 +96,28 @@ const App = () => {
               className="mt-4 p-2 bg-blue-500 text-white"
             />
           </form>
-          <div className="flex flex-col">
-            <FormDatePicker
-              label="Label 1"
-              formField="date1"
-              onShowChange={() => {}}
-              control={methods.control}
-              setValue={methods.setValue}
-            />
-          </div>
-
-          <div className="flex flex-col">
-            <FormDatePicker
-              label="Label 2"
-              formField="date2"
-              onShowChange={() => {}}
-              control={methods.control}
-              setValue={methods.setValue}
-            />
-          </div>
         </FormProvider>
+      </div>
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col">
+          <FormDatePicker
+            label="Label 1"
+            formField="date1"
+            onShowChange={() => {}}
+            control={methods.control}
+            setValue={methods.setValue}
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <FormDatePicker
+            label="Label 2"
+            formField="date2"
+            onShowChange={() => {}}
+            control={methods.control}
+            setValue={methods.setValue}
+          />
+        </div>
       </div>
     </div>
   );
