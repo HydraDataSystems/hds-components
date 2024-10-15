@@ -14,6 +14,8 @@ const App = () => {
       testInput: "",
       emailInput: "",
       telInput: "",
+      date1: "",
+      date2: "",
     },
   });
 
@@ -99,7 +101,7 @@ const App = () => {
               formField="date1"
               onShowChange={() => {}}
               control={methods.control}
-              setValue={setValue}
+              setValue={methods.setValue}
             />
           </div>
 
@@ -109,7 +111,7 @@ const App = () => {
               formField="date2"
               onShowChange={() => {}}
               control={methods.control}
-              setValue={setValue}
+              setValue={methods.setValue}
             />
           </div>
         </FormProvider>
