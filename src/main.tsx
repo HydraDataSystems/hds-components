@@ -19,8 +19,9 @@ const App = () => {
 
       <div className="flex flex-col">
         <FormDatePicker
+          label="Label 1"
           formField="date1"
-          onShowChange={() => { }}
+          onShowChange={() => {}}
           control={control}
           setValue={setValue}
         />
@@ -28,8 +29,9 @@ const App = () => {
 
       <div className="flex flex-col">
         <FormDatePicker
+          label="Label 2"
           formField="date2"
-          onShowChange={() => { }}
+          onShowChange={() => {}}
           control={control}
           setValue={setValue}
         />
@@ -38,6 +40,8 @@ const App = () => {
   );
 };
 
-const root = ReactDom.createRoot(document.getElementById("root") as HTMLElement);
+const root = ReactDom.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 
 root.render(<App />);
