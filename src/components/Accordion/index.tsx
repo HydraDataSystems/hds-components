@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, PropsWithChildren } from "react";
 import { HiChevronRight } from "react-icons/hi2";
 import { BtnStyle } from "../Button";
+import { classNames } from "src/helpers";
 
 export type AccordionProps = {
   title: React.ReactNode;
@@ -12,10 +13,12 @@ export type AccordionProps = {
   active?: boolean;
   transition?: "linear" | "ease" | "ease-in" | "ease-out" | "ease-in-out";
   onToggle?: () => void;
+  iconPosition?: "start" | "end";
+  disabled?: boolean;
 };
 
 export const Accordion = ({
-  title: barContent,
+  title,
   active = false,
   detached = false,
   headerSize = "normal",
@@ -23,6 +26,8 @@ export const Accordion = ({
   contentStyle = "normal",
   transition = "ease-in-out",
   onToggle,
+  iconPosition = "start",
+  disabled = false,
   children,
 }: PropsWithChildren<AccordionProps>) => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -37,25 +42,40 @@ export const Accordion = ({
   }, [contentActive]);
 
   const onToggleClick = () => {
-    setContentActive((prev) => !prev);
-    onToggle && onToggle();
+    if (!disabled) {
+      setContentActive((prev) => !prev);
+      onToggle && onToggle();
+    }
   };
+
+  const ChevronIcon = (
+    <HiChevronRight
+      className={`${contentActive ? "rotate-90" : ""}
+      transition-transform duration-500 ${transition}
+      ${disabled ? "text-slate-400" : ""}`}
+    />
+  );
+
+  const headerClasses = classNames(
+    "flex items-center gap-2",
+    headerSize === "normal" ? "p-4" : "px-4",
+    disabled ? "bg-slate-500 cursor-not-allowed" : BtnStyle[headerStyle],
+    disabled ? "text-slate-300" : ""
+  );
 
   return (
     <div className="mb-4">
       <div
-        className={`border ${detached ? "rounded-md" : "rounded-t-md"} overflow-hidden cursor-pointer ${detached ? "mb-2" : ""}`}
+        className={`border ${detached ? "rounded-md" : "rounded-t-md"} overflow-hidden ${
+          disabled ? "cursor-not-allowed" : "cursor-pointer"
+        } ${detached ? "mb-2" : ""}`}
         onClick={onToggleClick}
         data-testid="accordion-header"
       >
-        <div
-          className={`${BtnStyle[headerStyle]} flex items-center gap-2 ${headerSize === "normal" ? "p-4" : ""}`}
-        >
-          <HiChevronRight
-            className={` ${contentActive ? "rotate-90" : ""}
-            transition-transform duration-500 ${transition}`}
-          />
-          <div className="flex flex-grow items-center">{barContent}</div>
+        <div className={headerClasses}>
+          {iconPosition === "start" && ChevronIcon}
+          <div className="flex flex-grow items-center">{title}</div>
+          {iconPosition === "end" && ChevronIcon}
         </div>
       </div>
       <div

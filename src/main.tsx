@@ -39,84 +39,68 @@ const App = () => {
         <Button title="My Button" />
       </div>
       <div className="flex flex-col min-w-72">
-        <Accordion title="Accordion Header" headerSize="normal">
-          <div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Header 1</th>
-                  <th>Header 2</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Row 1</td>
-                  <td>Row 2</td>
-                </tr>
-                <tr>
-                  <td>Row 3</td>
-                  <td>Row 4</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </Accordion>
+        <div>
+          <label>Normal Priority header</label>
+          <Accordion title="Accordion Header" headerSize="normal" active>
+            <div>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Molestias accusantium corrupti et doloremque, ab sint officiis
+                eius sapiente, facilis quo inventore ad libero fugiat autem.
+                Repellat similique optio tenetur aperiam.
+              </p>
+            </div>
+          </Accordion>
+        </div>
         <br />
-        <Accordion
-          title="Accordion Header"
-          headerSize="normal"
-          headerStyle="secondary"
-          detached
-        >
-          <div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Header 1</th>
-                  <th>Header 2</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Row 1</td>
-                  <td>Row 2</td>
-                </tr>
-                <tr>
-                  <td>Row 3</td>
-                  <td>Row 4</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </Accordion>
+        <div>
+          <label>Detached secondary header arrow end</label>
+          <Accordion
+            title="Accordion Header"
+            headerSize="normal"
+            headerStyle="secondary"
+            detached
+            iconPosition="end"
+          >
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
+              accusantium corrupti et doloremque, ab sint officiis eius
+              sapiente, facilis quo inventore ad libero fugiat autem. Repellat
+              similique optio tenetur aperiam.
+            </p>
+          </Accordion>
+        </div>
         <br />
-        <Accordion
-          title="Accordion Header"
-          headerSize="compact"
-          contentStyle="compact"
-          headerStyle="white"
-        >
-          <div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Header 1</th>
-                  <th>Header 2</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Row 1</td>
-                  <td>Row 2</td>
-                </tr>
-                <tr>
-                  <td>Row 3</td>
-                  <td>Row 4</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </Accordion>
+        <div>
+          <label>Compact white header</label>
+          <Accordion
+            title="Accordion Header"
+            headerSize="compact"
+            contentStyle="compact"
+            headerStyle="white"
+          >
+            <div>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Molestias accusantium corrupti et doloremque, ab sint officiis
+                eius sapiente, facilis quo inventore ad libero fugiat autem.
+                Repellat similique optio tenetur aperiam.
+              </p>
+            </div>
+          </Accordion>
+        </div>
+        <br />
+        <div>
+          <label>Disabled</label>
+          <Accordion title="Accordion Header" disabled>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
+              accusantium corrupti et doloremque, ab sint officiis eius
+              sapiente, facilis quo inventore ad libero fugiat autem. Repellat
+              similique optio tenetur aperiam.
+            </p>
+          </Accordion>
+        </div>
       </div>
       <div className="flex flex-col gap-2">
         <Badge type="success" content="Success" />
