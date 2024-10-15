@@ -35,11 +35,11 @@ root.render(
           </table>
         </div>
       </Accordion>
-      <div className="flex flex-col gap-2">
-        <Badge type="success" content="Success" />
-        <Badge type="warning" content="Warning" />
-        <Badge type="alert" content="Alert" />
-      </div>
+    </div>
+    <div className="flex flex-col gap-2">
+      <Badge type="success" content="Success" />
+      <Badge type="warning" content="Warning" />
+      <Badge type="alert" content="Alert" />
     </div>
   </div>
 );
