@@ -6,6 +6,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import FormInput from "./components/FormInput";
 import ReactDOM from "react-dom/client";
 import Badge from "./components/Badge";
+import FormDatePicker from "./components/FormDatePicker/FormDatePicker";
 
 const App = () => {
   const methods = useForm({
@@ -92,6 +93,25 @@ const App = () => {
               className="mt-4 p-2 bg-blue-500 text-white"
             />
           </form>
+          <div className="flex flex-col">
+            <FormDatePicker
+              label="Label 1"
+              formField="date1"
+              onShowChange={() => {}}
+              control={methods.control}
+              setValue={setValue}
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <FormDatePicker
+              label="Label 2"
+              formField="date2"
+              onShowChange={() => {}}
+              control={methods.control}
+              setValue={setValue}
+            />
+          </div>
         </FormProvider>
       </div>
     </div>
