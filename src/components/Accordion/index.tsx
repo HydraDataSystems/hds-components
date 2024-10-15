@@ -1,19 +1,27 @@
 import { useRef, useState, useEffect, PropsWithChildren } from "react";
 import { HiChevronRight } from "react-icons/hi2";
+import { BtnStyle } from "../Button";
 
 export type AccordionProps = {
-  barContent: React.ReactNode;
+  title: React.ReactNode;
+  headerSize?: "compact" | "normal";
+  headerStyle?: keyof typeof BtnStyle;
+  headerColor?: string;
+  contentStyle?: "compact" | "normal";
+  detached?: boolean;
   active?: boolean;
-  headerStyle?: string;
   transition?: "linear" | "ease" | "ease-in" | "ease-out" | "ease-in-out";
   onToggle?: () => void;
 };
 
 export const Accordion = ({
-  barContent,
+  title: barContent,
   active = false,
-  headerStyle = "p-4 bg-gray-100 flex items-center gap-2",
-  transition = 'ease-in-out',
+  detached = false,
+  headerSize = "normal",
+  headerStyle = "primary",
+  contentStyle = "normal",
+  transition = "ease-in-out",
   onToggle,
   children,
 }: PropsWithChildren<AccordionProps>) => {
@@ -22,7 +30,9 @@ export const Accordion = ({
 
   useEffect(() => {
     if (contentRef.current) {
-      contentRef.current.style.height = contentActive ? `${contentRef.current.scrollHeight}px` : '0px';
+      contentRef.current.style.height = contentActive
+        ? `${contentRef.current.scrollHeight}px`
+        : "0px";
     }
   }, [contentActive]);
 
@@ -34,13 +44,15 @@ export const Accordion = ({
   return (
     <div className="mb-4">
       <div
-        className="border rounded-t-md overflow-hidden cursor-pointer"
+        className={`border ${detached ? "rounded-md" : "rounded-t-md"} overflow-hidden cursor-pointer ${detached ? "mb-2" : ""}`}
         onClick={onToggleClick}
         data-testid="accordion-header"
       >
-        <div className={`${headerStyle}`}>
+        <div
+          className={`${BtnStyle[headerStyle]} flex items-center gap-2 ${headerSize === "normal" ? "p-4" : ""}`}
+        >
           <HiChevronRight
-            className={` ${ contentActive ? "rotate-90" : "" }
+            className={` ${contentActive ? "rotate-90" : ""}
             transition-transform duration-500 ${transition}`}
           />
           <div className="flex flex-grow items-center">{barContent}</div>
@@ -50,9 +62,20 @@ export const Accordion = ({
         ref={contentRef}
         data-testid="accordion-content"
         className={`overflow-hidden duration-500 ${transition}`}
-        style={{ transitionProperty: 'height', height: contentActive ? `${contentRef.current?.scrollHeight}px` : '0px' }}
+        style={{
+          transitionProperty: "height",
+          height: contentActive
+            ? `${contentRef.current?.scrollHeight}px`
+            : "0px",
+        }}
       >
-        {children}
+        <div className={`h-full ${detached ? "" : ""}`}>
+          <div
+            className={` ${contentStyle === "normal" ? "p-4" : "p-2"} ${detached ? "border rounded-md" : "border rounded-b-md"}`}
+          >
+            {children}
+          </div>
+        </div>
       </div>
     </div>
   );

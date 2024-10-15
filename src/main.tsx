@@ -38,10 +38,72 @@ const App = () => {
       <div className="flex flex-col">
         <Button title="My Button" />
       </div>
-      <div className="flex flex-col">
-        <Accordion barContent="Accordion Header">
-          <div className="bg-slate-200 p-4">
+      <div className="flex flex-col min-w-72">
+        <Accordion title="Accordion Header" headerSize="normal">
+          <div>
             <table>
+              <thead>
+                <tr>
+                  <th>Header 1</th>
+                  <th>Header 2</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Row 1</td>
+                  <td>Row 2</td>
+                </tr>
+                <tr>
+                  <td>Row 3</td>
+                  <td>Row 4</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </Accordion>
+        <br />
+        <Accordion
+          title="Accordion Header"
+          headerSize="normal"
+          headerStyle="secondary"
+          detached
+        >
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Header 1</th>
+                  <th>Header 2</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Row 1</td>
+                  <td>Row 2</td>
+                </tr>
+                <tr>
+                  <td>Row 3</td>
+                  <td>Row 4</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </Accordion>
+        <br />
+        <Accordion
+          title="Accordion Header"
+          headerSize="compact"
+          contentStyle="compact"
+          headerStyle="white"
+        >
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Header 1</th>
+                  <th>Header 2</th>
+                </tr>
+              </thead>
               <tbody>
                 <tr>
                   <td>Row 1</td>
