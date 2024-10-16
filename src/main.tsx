@@ -30,6 +30,24 @@ const App = () => {
     return;
   };
 
+  const accordionProps = {
+    header: {
+      title: <h2>Accordion Header with <span className="text-red-500">HTML</span></h2>,
+      template: "primary" as const,
+      icon: {
+        name: HiOutlineBell,
+        position: "start" as const
+      }
+    },
+    body: {
+      size: "normal" as const,
+      transition: "ease-in-out" as const,
+      detached: true,
+    },
+    expanded: true,
+    onToggle: () => console.log("Toggled")
+  };
+
   return (
     <div className="flex my-4 mx-20 gap-8">
       <div className="flex flex-col">
@@ -40,36 +58,11 @@ const App = () => {
         <Button title="My Button" />
       </div>
       <div className="flex flex-col min-w-72">
-        <div>
-          <label>Normal Priority header</label>
-          <Accordion
-            header={{
-              title: <h2>Accordion Header with <span className="text-red-500">HTML</span></h2>,
-              size: "normal",
-              template: "primary",
-              custom: "bg-purple-500 hover:bg-purple-600", // Custom can override the default template
-              icon: {
-                name: HiOutlineBell,
-                position: "end"
-              }
-            }}
-            detached
-            disabled
-            toggleIcon="end"
-            expanded
-          >
-            <div>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Molestias accusantium corrupti et doloremque, ab sint officiis
-                eius sapiente, facilis quo inventore ad libero fugiat autem.
-                Repellat similique optio tenetur aperiam.
-              </p>
-            </div>
-          </Accordion>
-        </div>
-
+        <Accordion {...accordionProps}>
+          <p>Accordion content goes here</p>
+        </Accordion>
       </div>
+
       <div className="flex flex-col gap-2">
         <Badge type="success" content="Success" />
         <Badge type="warning" content="Warning" />

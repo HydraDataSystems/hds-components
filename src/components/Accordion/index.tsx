@@ -16,16 +16,21 @@ export type HeaderProps = {
   custom?: string;
   icon?: {
     name: IconType;
-    position: "start" | "end";
+    position?: "start" | "end"
   };
+};
+
+export type BodyProps = {
+  size?: "compact" | "normal";
+  transition?: "linear" | "ease" | "ease-in" | "ease-out" | "ease-in-out";
+  detached?: boolean;
+  custom?: string;
 };
 
 export type AccordionProps = {
   header: HeaderProps;
-  contentStyle?: "compact" | "normal";
-  detached?: boolean;
+  body: BodyProps;
   expanded?: boolean;
-  transition?: "linear" | "ease" | "ease-in" | "ease-out" | "ease-in-out";
   onToggle?: () => void;
   toggleIcon?: "start" | "end";
   disabled?: boolean;
@@ -33,10 +38,8 @@ export type AccordionProps = {
 
 export const Accordion = ({
   header,
+  body,
   expanded = false,
-  detached = false,
-  contentStyle = "normal",
-  transition = "ease-in-out",
   onToggle,
   toggleIcon = "start",
   disabled = false,
@@ -44,6 +47,27 @@ export const Accordion = ({
 }: PropsWithChildren<AccordionProps>) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentExpanded, setContentExpanded] = useState<boolean>(expanded);
+
+  const headerWithDefaults: Required<Omit<HeaderProps, 'icon'>> & { icon?: Required<HeaderProps['icon']> } = {
+    ...header,
+    size: header.size || "normal",
+    template: header.template || "primary",
+    custom: header.custom || "",
+    icon: header.icon ? {
+      ...header.icon,
+      position: header.icon.position || "start"
+    } : undefined
+  };
+
+  const bodyWithDefaults: Required<BodyProps> = {
+    ...body,
+    size: body.size || "normal",
+    transition: body.transition || "ease-in-out",
+    detached: body.detached || false,
+    custom: body.custom || ""
+  }
+
+
 
   useEffect(() => {
     if (contentRef.current) {
@@ -62,30 +86,50 @@ export const Accordion = ({
 
   const ChevronIcon = (
     <HiChevronRight
-      className={`${contentExpanded ? "rotate-90" : ""}
-      transition-transform duration-500 ${transition}
-      ${disabled ? "text-slate-400" : ""}`}
+      className={classNames(
+        contentExpanded ? "rotate-90" : "",
+        "transition-transform duration-500",
+        disabled ? "text-slate-400" : ""
+      )}
     />
   );
 
-  const CustomIcon = header.icon && (
-    <header.icon.name className={disabled ? "text-slate-400" : ""} />
+  const CustomIcon = headerWithDefaults.icon && (
+    <headerWithDefaults.icon.name
+      className={classNames(
+        "bg-transparent accordion-icon",
+        disabled ? "text-slate-400" : "",
+        !disabled && headerWithDefaults.custom ? headerWithDefaults.custom : ""
+      )}
+    />
   );
 
   const headerClasses = classNames(
-    "flex items-center gap-2",
-    header.size === "normal" ? "p-4" : "px-4",
-    disabled ? "bg-slate-500 cursor-not-allowed text-slate-300" :
-      header.template ? Template[header.template] : "",
-    header.custom || ""
+    "flex items-center gap-2 transition-colors duration-200",
+    headerWithDefaults.size === "normal" ? "p-4" : "px-4",
+    !disabled && headerWithDefaults.template ? Template[headerWithDefaults.template] : "",
+    !disabled && headerWithDefaults.custom ? headerWithDefaults.custom : "",
+    disabled ? "bg-slate-500 cursor-not-allowed text-slate-300" : "cursor-pointer"
+  );
+
+  const bodyClasses = classNames(
+    "overflow-hidden",
+    `duration-500 ${bodyWithDefaults.transition}`,
+    bodyWithDefaults.detached ? "mt-2" : ""
+  );
+
+  const bodyContentClasses = classNames(
+    bodyWithDefaults.size === "compact" ? "p-2" : "p-4",
+    bodyWithDefaults.detached ? "border rounded-md" : "border-t-0 rounded-b-md",
+    bodyWithDefaults.custom || ""
   );
 
   const renderHeaderContent = () => (
     <>
       {toggleIcon === "start" && ChevronIcon}
-      {header.icon?.position === "start" && CustomIcon}
-      <div className="flex flex-grow items-center">{header.title}</div>
-      {header.icon?.position === "end" && CustomIcon}
+      {headerWithDefaults.icon?.position === "start" && CustomIcon}
+      <div className="flex flex-grow items-center">{headerWithDefaults.title}</div>
+      {headerWithDefaults.icon?.position === "end" && CustomIcon}
       {toggleIcon === "end" && ChevronIcon}
     </>
   );
@@ -93,8 +137,12 @@ export const Accordion = ({
   return (
     <div className="mb-4">
       <div
-        className={`border ${detached ? "rounded-md" : "rounded-t-md"} overflow-hidden ${disabled ? "cursor-not-allowed" : "cursor-pointer"
-          } ${detached ? "mb-2" : ""}`}
+        className={classNames(
+          "border",
+          bodyWithDefaults.detached ? "rounded-md" : "rounded-t-md",
+          "overflow-hidden",
+          disabled ? "cursor-not-allowed" : "cursor-pointer"
+        )}
         onClick={onToggleClick}
         data-testid="accordion-header"
       >
@@ -105,7 +153,7 @@ export const Accordion = ({
       <div
         ref={contentRef}
         data-testid="accordion-content"
-        className={`overflow-hidden duration-500 ${transition}`}
+        className={bodyClasses}
         style={{
           transitionProperty: "height",
           height: contentExpanded
@@ -113,12 +161,8 @@ export const Accordion = ({
             : "0px",
         }}
       >
-        <div className={`h-full ${detached ? "" : ""}`}>
-          <div
-            className={`${contentStyle === "normal" ? "p-4" : "p-2"} ${detached ? "border rounded-md" : "border rounded-b-md"}`}
-          >
-            {children}
-          </div>
+        <div className={bodyContentClasses}>
+          {children}
         </div>
       </div>
     </div>
