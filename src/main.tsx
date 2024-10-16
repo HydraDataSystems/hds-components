@@ -8,6 +8,7 @@ import FormInput from "./components/FormInput";
 import ReactDOM from "react-dom/client";
 import Badge from "./components/Badge";
 import FormDatePicker from "./components/FormDatePicker";
+import { HiOutlineBell } from "react-icons/hi2";
 
 const App = () => {
   const methods = useForm({
@@ -41,43 +42,21 @@ const App = () => {
       <div className="flex flex-col min-w-72">
         <div>
           <label>Normal Priority header</label>
-          <Accordion title="Accordion Header" headerSize="normal" active>
-            <div>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Molestias accusantium corrupti et doloremque, ab sint officiis
-                eius sapiente, facilis quo inventore ad libero fugiat autem.
-                Repellat similique optio tenetur aperiam.
-              </p>
-            </div>
-          </Accordion>
-        </div>
-        <br />
-        <div>
-          <label>Detached secondary header arrow end</label>
           <Accordion
-            title="Accordion Header"
-            headerSize="normal"
-            headerStyle="secondary"
+            header={{
+              title: <h2>Accordion Header with <span className="text-red-500">HTML</span></h2>,
+              size: "normal",
+              template: "primary",
+              custom: "bg-purple-500 hover:bg-purple-600", // Custom can override the default template
+              icon: {
+                name: HiOutlineBell,
+                position: "end"
+              }
+            }}
             detached
-            iconPosition="end"
-          >
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              accusantium corrupti et doloremque, ab sint officiis eius
-              sapiente, facilis quo inventore ad libero fugiat autem. Repellat
-              similique optio tenetur aperiam.
-            </p>
-          </Accordion>
-        </div>
-        <br />
-        <div>
-          <label>Compact white header</label>
-          <Accordion
-            title="Accordion Header"
-            headerSize="compact"
-            contentStyle="compact"
-            headerStyle="white"
+            disabled
+            toggleIcon="end"
+            expanded
           >
             <div>
               <p>
@@ -89,18 +68,7 @@ const App = () => {
             </div>
           </Accordion>
         </div>
-        <br />
-        <div>
-          <label>Disabled</label>
-          <Accordion title="Accordion Header" disabled>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
-              accusantium corrupti et doloremque, ab sint officiis eius
-              sapiente, facilis quo inventore ad libero fugiat autem. Repellat
-              similique optio tenetur aperiam.
-            </p>
-          </Accordion>
-        </div>
+
       </div>
       <div className="flex flex-col gap-2">
         <Badge type="success" content="Success" />
@@ -149,7 +117,7 @@ const App = () => {
           <FormDatePicker
             label="Label 1"
             formField="date1"
-            onShowChange={() => {}}
+            onShowChange={() => { }}
             control={methods.control}
             setValue={methods.setValue}
           />
@@ -159,7 +127,7 @@ const App = () => {
           <FormDatePicker
             label="Label 2"
             formField="date2"
-            onShowChange={() => {}}
+            onShowChange={() => { }}
             control={methods.control}
             setValue={methods.setValue}
           />
