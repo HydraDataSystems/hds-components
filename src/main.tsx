@@ -50,46 +50,7 @@ const App = () => {
 
       <div className="flex flex-col min-w-72 gap-4">
         <div className="flex flex-row">
-          <Badge template="success" content="Success" style="filled" />
-        </div>
-
-        <div className="flex flex-row">
-          <Badge template="warning" content="Warning" />
-        </div>
-
-        <div className="flex flex-row">
-          <Badge template="alert" content="Alert" style="empty" compact />
-        </div>
-
-        <div className="flex flex-row">
           <Badge template="default" content="Default" />
-        </div>
-
-        <div className="flex flex-row">
-          <Badge template="progress" content="Progress" style="empty" outline />
-        </div>
-        <div className="flex flex-row">
-          <Badge template="notification" content="5" type="number" outline />
-        </div>
-        <div className="flex flex-row">
-          <Badge
-            template="success"
-            content={0}
-            type="number"
-            compact
-            outline
-            showZero
-          />
-        </div>
-        <div className="flex flex-row">
-          <Badge
-            template="notification"
-            style="filled"
-            content={2000}
-            type="number"
-            outline
-            counterOverflow={999}
-          />
         </div>
       </div>
     </div>
