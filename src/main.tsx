@@ -83,12 +83,12 @@ const App = () => {
         </div>
         <div className="flex flex-row">
           <Badge
-            template="success"
+            template="notification"
             style="filled"
-            content={35}
+            content={2000}
             type="number"
             outline
-            counterOverflow={9}
+            counterOverflow={999}
           />
         </div>
       </div>
