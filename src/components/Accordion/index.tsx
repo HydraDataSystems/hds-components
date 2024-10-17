@@ -78,18 +78,15 @@ export const Accordion = ({
   };
 
   useEffect(() => {
-    console.log(contentExpanded);
     setContentExpanded(expanded);
   }, [expanded]);
 
   useEffect(() => {
     if (contentRef.current) {
-      console.log("effect: ", contentExpanded);
-      console.log(contentRef.current.scrollHeight);
       const height = contentExpanded
         ? `${contentRef.current.scrollHeight}px`
         : "0px";
-      console.log("height: ", height);
+
       contentRef.current.style.height = height;
     }
   }, [contentExpanded]);
@@ -99,7 +96,7 @@ export const Accordion = ({
         const newState = !prev;
 
         if (onToggle) onToggle();
-        console.log("newState: ", newState);
+
         return newState;
       });
     }
