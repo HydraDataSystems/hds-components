@@ -32,12 +32,16 @@ const App = () => {
 
   const accordionProps = {
     header: {
-      title: <h2>Accordion Header with <span className="text-red-500">HTML</span></h2>,
+      title: (
+        <h2>
+          Accordion Header with <span className="text-red-500">HTML</span>
+        </h2>
+      ),
       template: "primary" as const,
       icon: {
         name: HiOutlineBell,
-        position: "start" as const
-      }
+        position: "start" as const,
+      },
     },
     body: {
       size: "normal" as const,
@@ -45,7 +49,7 @@ const App = () => {
       detached: true,
     },
     expanded: true,
-    onToggle: () => console.log("Toggled")
+    onToggle: () => console.log("Toggled"),
   };
 
   return (
@@ -59,7 +63,12 @@ const App = () => {
       </div>
       <div className="flex flex-col min-w-72">
         <Accordion {...accordionProps}>
-          <p>Accordion content goes here</p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias
+            exercitationem delectus laboriosam ipsam eos quibusdam explicabo
+            numquam consectetur aperiam laborum architecto perferendis nobis
+            expedita similique autem tempora qui, accusantium fuga.
+          </p>
         </Accordion>
       </div>
 
@@ -110,7 +119,7 @@ const App = () => {
           <FormDatePicker
             label="Label 1"
             formField="date1"
-            onShowChange={() => { }}
+            onShowChange={() => {}}
             control={methods.control}
             setValue={methods.setValue}
           />
@@ -120,7 +129,7 @@ const App = () => {
           <FormDatePicker
             label="Label 2"
             formField="date2"
-            onShowChange={() => { }}
+            onShowChange={() => {}}
             control={methods.control}
             setValue={methods.setValue}
           />
