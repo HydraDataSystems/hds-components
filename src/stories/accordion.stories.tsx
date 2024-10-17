@@ -4,7 +4,7 @@ import { Accordion, AccordionProps } from "../components/Accordion";
 import { HiOutlineBell } from "react-icons/hi2";
 
 export default {
-  title: "Components/Accordion",
+  title: "HDS/Accordion",
   component: Accordion,
   argTypes: {
     onToggle: { action: "toggled" },
