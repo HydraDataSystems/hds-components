@@ -144,7 +144,9 @@ export const Accordion = ({
 
   const bodyContentClasses = classNames(
     bodyWithDefaults.size === "compact" ? "p-2" : "p-4",
-    bodyWithDefaults.detached ? "border rounded-md" : "border-t-0 rounded-b-md",
+    bodyWithDefaults.detached
+      ? "border rounded-md"
+      : "border border-t-0 rounded-b-md",
     bodyWithDefaults.custom || ""
   );
 
