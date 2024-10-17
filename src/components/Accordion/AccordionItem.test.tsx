@@ -30,40 +30,45 @@ describe("AccordionItem", () => {
     const header = screen.getByTestId("accordion-header");
     const content = screen.getByTestId("accordion-content");
 
+    // Initial state
     expect(content).toHaveStyle("height: 0px");
     expect(content).toHaveClass("overflow-hidden");
     expect(container.querySelector(".rotate-90")).toBeNull();
 
+    // Click to expand
     await act(async () => {
       await userEvent.click(header);
     });
 
+    // Assert that onToggle was called once
     expect(onToggleMock).toHaveBeenCalledTimes(1);
 
-    await waitFor(
-      () => {
-        expect(content.style.height).not.toBe("0px");
-        expect(content.style.height).not.toBe("");
-      },
-      { timeout: 3000 }
-    );
+    // Wait for expanded state
+    await waitFor(() => {
+      // expect(content).not.toHaveStyle("height: 0px");
+      expect(content.style.height).not.toBe("0px");
+      expect(content.style.height).not.toBe("");
+    });
 
+    // Check expanded state
     expect(content).not.toHaveClass("overflow-hidden");
     expect(container.querySelector(".rotate-90")).toBeInTheDocument();
 
+    // Reset the mock for the next click
     onToggleMock.mockClear();
 
+    // Click to collapse
     await userEvent.click(header);
 
+    // Assert that onToggle was called once
     expect(onToggleMock).toHaveBeenCalledTimes(1);
 
-    await waitFor(
-      () => {
-        expect(content).toHaveStyle("height: 0px");
-      },
-      { timeout: 3000 }
-    );
+    // Wait for collapsed state
+    await waitFor(() => {
+      expect(content).toHaveStyle("height: 0px");
+    });
 
+    // Check collapsed state
     expect(content).toHaveClass("overflow-hidden");
     expect(container.querySelector(".rotate-90")).toBeNull();
   });
