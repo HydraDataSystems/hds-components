@@ -1,21 +1,58 @@
+import React, { useState, useEffect } from "react";
+
 export interface BadgeProps {
-  type: "success" | "warning" | "alert";
+  template?: "default" | "success" | "progress" | "warning" | "alert";
   content: number | string;
+  show?: boolean;
+  outline?: boolean;
+  style?: "default" | "filled" | "empty";
+  compact?: boolean;
 }
 
-const Badge = ({ type, content }: BadgeProps) => {
-  const colorClasses = {
-    success:
-      "bg-green-100 text-green-800 ring-1 ring-inset ring-green-600/10 border border-green-300",
-    alert:
-      "bg-red-100 text-red-800 ring-1 ring-inset ring-red-600/10 border border-red-300",
-    warning:
-      "bg-orange-100 text-orange-800 ring-1 ring-inset ring-orange-600/10 border border-orange-300",
+const Badge = ({
+  template = "default",
+  content,
+  show = true,
+  outline = false,
+  style = "default",
+  compact = false,
+}: BadgeProps) => {
+  const [isVisible, setIsVisible] = useState(show);
+
+  useEffect(() => {
+    setIsVisible(show);
+  }, [show]);
+
+  if (!isVisible) return null;
+
+  const getColorClasses = () => {
+    const baseColors = {
+      default: "gray",
+      success: "green",
+      progress: "blue",
+      warning: "orange",
+      alert: "red",
+    };
+
+    const baseColor = baseColors[template as keyof typeof baseColors];
+
+    switch (style) {
+      case "filled":
+        return `bg-${baseColor}-300 text-${baseColor}-800 border border-${baseColor}-300`;
+      case "empty":
+        return `bg-transparent text-${baseColor}-800 border border-${baseColor}-300`;
+      default:
+        return `bg-${baseColor}-100 text-${baseColor}-800 ring-1 ring-inset ring-${baseColor}-600/20 border border-${baseColor}-300`;
+    }
   };
+
+  const outlineClass = outline ? "outline outline-2 outline-transparent" : "";
+  const colorClasses = getColorClasses();
+  const heightClass = compact ? "h-4" : "h-6";
 
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium ${colorClasses[type]} ml-2`}
+      className={`inline-flex items-center justify-center px-2.5 py-0.5 rounded-md text-xs font-medium ${colorClasses} ${outlineClass} ml-2 min-w-[4rem] ${heightClass}`}
     >
       {content}
     </span>
