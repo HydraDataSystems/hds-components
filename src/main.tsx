@@ -1,13 +1,67 @@
 import React from "react";
-import ReactDom from "react-dom/client";
-import { DatePicker } from "./index";
-import { Button } from "./index";
+import "./index.css";
+import DatePicker from "./components/DatePicker";
+import Button from "./components/Button";
+import Accordion from "./components/Accordion";
+import ReactDOM from "react-dom/client";
+import Badge from "./components/Badge";
+import { HiOutlineBell } from "react-icons/hi2";
 
-const root = ReactDom.createRoot(document.getElementById("root") as HTMLElement);
+const App = () => {
+  const accordionProps = {
+    header: {
+      title: (
+        <h2>
+          Accordion Header with <span className="text-red-500">HTML</span>
+        </h2>
+      ),
+      template: "primary" as const,
+      icon: {
+        name: HiOutlineBell,
+        position: "start" as const,
+      },
+    },
+    body: {
+      size: "normal" as const,
+      transition: "ease-in-out" as const,
+    },
+    expanded: false,
+  };
 
+  return (
+    <div className="flex my-4 mx-20 gap-8">
+      <div className="flex flex-col">
+        <DatePicker label="Label" initialDate="2023-11-01" />
+      </div>
+
+      <div className="flex flex-col">
+        <Button title="My Button" />
+      </div>
+      <div className="flex flex-col min-w-72">
+        <Accordion {...accordionProps}>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias
+            exercitationem delectus laboriosam ipsam eos quibusdam explicabo
+            numquam consectetur aperiam laborum architecto perferendis nobis
+            expedita similique autem tempora qui, accusantium fuga.
+          </p>
+        </Accordion>
+      </div>
+
+      <div className="flex flex-col min-w-72 gap-4">
+        <div className="flex flex-row">
+          <Badge template="default" content="Default" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 root.render(
-  <div>
-    <DatePicker label="My Label" initialDate="2023-11-01" />
-    <Button title="My Button" />
-  </div>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );

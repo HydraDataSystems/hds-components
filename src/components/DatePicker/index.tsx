@@ -1,7 +1,8 @@
-import { 
-  useState, 
+import {
+  useState,
   useEffect,
-  useCallback } from "react";
+  useCallback
+} from "react";
 
 import {
   format,
@@ -25,9 +26,11 @@ export type DatePickerProps = {
   initialDate?: string,
   formName?: string,
   label?: string,
-  onChange?: (date: string) => void,
+  onChange?: (date: Date) => void,
   isActionSelectedDate?: boolean
-  fullWidth?: boolean
+  fullWidth?: boolean,
+  show?: boolean;
+  setShow?: (show: boolean) => void;
 }
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -39,22 +42,30 @@ const DatePicker = ({
   onChange,
   isActionSelectedDate = false,
   fullWidth = false,
+  show,
+  setShow,
 }: DatePickerProps) => {
   const [dayCount, setDayCount] = useState<number[]>([]);
   const [blankDays, setBlankDays] = useState<number[]>([]);
-  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(show || false);
   const [datePickerHeaderDate, setDatePickerHeaderDate] = useState<Date>(initialDate ? new Date(initialDate) : new Date());
   const [selectedDate, setSelectedDate] = useState<Date>(initialDate ? new Date(initialDate) : new Date());
   const [type, setType] = useState<DatePickerType>("date");
+
+  useEffect(() => {
+    if (show !== undefined) {
+      setShowDatePicker(show);
+    }
+  }, [show]);
 
   const {
     x, y, refs, strategy
   } = useFloating({
     whileElementsMounted: autoUpdate,
-    placement: "left",
+    placement: "bottom-start",
     strategy: "fixed",
     middleware: [offset({
-      mainAxis: -270, crossAxis: 160
+      mainAxis: 10
     }), flip(), shift()]
   });
 
@@ -87,7 +98,7 @@ const DatePicker = ({
   }, [type]);
 
   const setDateValue = (date: number) => () => {
-    setSelectedDate(
+    const newDate = new Date(
       new Date(
         Date.UTC(
           datePickerHeaderDate.getFullYear(),
@@ -95,7 +106,13 @@ const DatePicker = ({
           date
         ))
     );
+    setSelectedDate(newDate);
+    setDatePickerHeaderDate(newDate);
     setShowDatePicker(false);
+
+    if (onChange) {
+      onChange(newDate);
+    }
   };
 
   const today = () => {
@@ -109,10 +126,10 @@ const DatePicker = ({
     let dayOfWeek = getDay(new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1)));
     let blankDaysArray = [];
     let daysArray = [];
-    for(let i = 1; i <= dayOfWeek; i++) {
+    for (let i = 1; i <= dayOfWeek; i++) {
       blankDaysArray.push(i);
     }
-    for(let i = 1; i <= daysInMonth; i++) {
+    for (let i = 1; i <= daysInMonth; i++) {
       daysArray.push(i);
     }
     setBlankDays(blankDaysArray);
@@ -129,7 +146,7 @@ const DatePicker = ({
       new Date(Date.UTC(
         selectedDate.getFullYear(),
         selectedDate.getMonth(),
-        selectedDate.getDay()
+        selectedDate.getDate()
       ))
     );
   }
@@ -175,13 +192,19 @@ const DatePicker = ({
     let start = current - 6;
 
     let yearsArray = [];
-    for(let i = 1; i <= 12; i++) {
+    for (let i = 1; i <= 12; i++) {
       yearsArray.push(start + i);
     }
     return yearsArray;
   }
 
-  const toggleDatepicker = () => setShowDatePicker((prev) => !prev);
+  const toggleDatepicker = () => {
+    const newShow = !showDatePicker;
+    setShowDatePicker(newShow);
+    if (setShow) {
+      setShow(newShow);
+    }
+  };
 
   const showMonthPicker = () => setType("month");
 
@@ -192,21 +215,17 @@ const DatePicker = ({
   }, [datePickerHeaderDate]);
 
   useEffect(() => {
-    onChange && onChange(selectedDate.toISOString());
-  }, [selectedDate])
-
-  useEffect(() => {
     if (isActionSelectedDate) {
       setDatePickerHeaderDate(initialDate ? new Date(initialDate) : new Date());
       setSelectedDate(initialDate ? new Date(initialDate) : new Date());
     }
 
-  }, [isActionSelectedDate])
+  }, [isActionSelectedDate]);
 
   return (
-    <div className="antialiased sans-serif">
+    <div className="antialiased sans-serif" ref={refs.setReference} onClick={toggleDatepicker} >
       <div className={fullWidth ? 'w-full' : 'w-40'}>
-        <label className="font-bold mb-1 text-grey-700 block">{label ?? "Select Date"}</label>
+        {label && <label>{label}</label>}
         <div ref={refs.setReference} className="relative flex" >
           <input type="hidden" name={formName ?? "date"} value={selectedDate.toISOString()} />
           <input
@@ -242,7 +261,7 @@ const DatePicker = ({
           <div
             ref={refs.setFloating}
             className="bg-white rounded-lg shadow p-4 absolute z-50"
-            style={{ top: y ?? 0, left: x ?? 0, position: strategy, width: "17rem" }}
+            style={{ top: y ?? 0, left: x ?? 0, position: strategy, width: "17rem", minHeight: "17rem", maxHeight: "auto" }}
           >
             <div className="flex justify-between items-center mb-2">
               <button
@@ -380,7 +399,7 @@ const DatePicker = ({
                       style={{ width: "25%" }}
                     >
                       <div
-                              className={`cursor-pointer p-5 font-semibold text-center text-sm rounded-lg hover:bg-gray-200 ${isSelectedMonth(i)
+                        className={`cursor-pointer p-5 font-semibold text-center text-sm rounded-lg hover:bg-gray-200 ${isSelectedMonth(i)
                           ? "bg-blue-500 text-white"
                           : "text-gray-700 hover:bg-blue-200"
                           }`}
@@ -413,7 +432,7 @@ const DatePicker = ({
                           : "text-gray-700 hover:bg-blue-200"
                           }`}
                       >
-                     {year}
+                        {year}
                       </div>
                     </div>
                   ))
