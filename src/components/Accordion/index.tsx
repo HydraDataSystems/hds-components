@@ -83,6 +83,8 @@ export const Accordion = ({
 
   useEffect(() => {
     if (contentRef.current) {
+      // Force a reflow
+      void contentRef.current.offsetHeight;
       const height = contentExpanded
         ? `${contentRef.current.scrollHeight}px`
         : "0px";
@@ -96,7 +98,6 @@ export const Accordion = ({
         const newState = !prev;
 
         if (onToggle) onToggle();
-
         return newState;
       });
     }
