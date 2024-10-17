@@ -6,7 +6,7 @@ import { IconType } from "react-icons";
 enum Template {
   primary = "border-transparent bg-indigo-600 text-white hover:bg-indigo-700",
   secondary = "border-transparent bg-indigo-100 text-indigo-700 hover:bg-indigo-200",
-  white = "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+  white = "border-gray-300 bg-white text-gray-700 hover:bg-gray-50",
 }
 
 export type HeaderProps = {
@@ -16,7 +16,7 @@ export type HeaderProps = {
   custom?: string;
   icon?: {
     name: IconType;
-    position?: "start" | "end"
+    position?: "start" | "end";
   };
 };
 
@@ -48,15 +48,19 @@ export const Accordion = ({
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentExpanded, setContentExpanded] = useState<boolean>(expanded);
 
-  const headerWithDefaults: Required<Omit<HeaderProps, 'icon'>> & { icon?: Required<HeaderProps['icon']> } = {
+  const headerWithDefaults: Required<Omit<HeaderProps, "icon">> & {
+    icon?: Required<HeaderProps["icon"]>;
+  } = {
     ...header,
     size: header.size || "normal",
     template: header.template || "primary",
     custom: header.custom || "",
-    icon: header.icon ? {
-      ...header.icon,
-      position: header.icon.position || "start"
-    } : undefined
+    icon: header.icon
+      ? {
+          ...header.icon,
+          position: header.icon.position || "start",
+        }
+      : undefined,
   };
 
   const bodyWithDefaults: Required<BodyProps> = {
@@ -64,10 +68,12 @@ export const Accordion = ({
     size: body.size || "normal",
     transition: body.transition || "ease-in-out",
     detached: body.detached || false,
-    custom: body.custom || ""
-  }
+    custom: body.custom || "",
+  };
 
-
+  useEffect(() => {
+    setContentExpanded(expanded);
+  }, [expanded]);
 
   useEffect(() => {
     if (contentRef.current) {
@@ -107,9 +113,13 @@ export const Accordion = ({
   const headerClasses = classNames(
     "flex items-center gap-2 transition-colors duration-200",
     headerWithDefaults.size === "normal" ? "p-4" : "px-4",
-    !disabled && headerWithDefaults.template ? Template[headerWithDefaults.template] : "",
+    !disabled && headerWithDefaults.template
+      ? Template[headerWithDefaults.template]
+      : "",
     !disabled && headerWithDefaults.custom ? headerWithDefaults.custom : "",
-    disabled ? "bg-slate-500 cursor-not-allowed text-slate-300" : "cursor-pointer"
+    disabled
+      ? "bg-slate-500 cursor-not-allowed text-slate-300"
+      : "cursor-pointer"
   );
 
   const bodyClasses = classNames(
@@ -128,7 +138,9 @@ export const Accordion = ({
     <>
       {toggleIcon === "start" && ChevronIcon}
       {headerWithDefaults.icon?.position === "start" && CustomIcon}
-      <div className="flex flex-grow items-center">{headerWithDefaults.title}</div>
+      <div className="flex flex-grow items-center">
+        {headerWithDefaults.title}
+      </div>
       {headerWithDefaults.icon?.position === "end" && CustomIcon}
       {toggleIcon === "end" && ChevronIcon}
     </>
@@ -146,9 +158,7 @@ export const Accordion = ({
         onClick={onToggleClick}
         data-testid="accordion-header"
       >
-        <div className={headerClasses}>
-          {renderHeaderContent()}
-        </div>
+        <div className={headerClasses}>{renderHeaderContent()}</div>
       </div>
       <div
         ref={contentRef}
@@ -161,9 +171,7 @@ export const Accordion = ({
             : "0px",
         }}
       >
-        <div className={bodyContentClasses}>
-          {children}
-        </div>
+        <div className={bodyContentClasses}>{children}</div>
       </div>
     </div>
   );
