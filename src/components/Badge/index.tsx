@@ -30,6 +30,7 @@ const Badge = ({
   counterOverflow,
 }: BadgeProps) => {
   const [isVisible, setIsVisible] = useState(show);
+  const [classMeasures, setClassMeasures] = useState<string>("");
   const [displayContent, setDisplayContent] = useState<string | number>(
     content
   );
@@ -85,16 +86,20 @@ const Badge = ({
 
   const outlineClass = outline ? "outline outline-2 outline-transparent" : "";
   const colorClasses = getColorClasses();
-  const heightClass = compact ? "h-4 w-4" : "h-6 w-6";
+
+  useEffect(() => {
+    const newMeasures = compact
+      ? `h-4 w-[${displayContent.toLocaleString().length + 1}rem] min-w-4`
+      : `h-6 w-[${displayContent.toLocaleString().length + 1}rem] min-w-6`;
+    setClassMeasures(newMeasures);
+  }, [compact, displayContent]);
 
   const shapeAndPadding =
-    type === "number"
-      ? "rounded-full p-1 min-w-[1rem]"
-      : "rounded-md px-2.5 py-0.5 min-w-[4rem]";
+    type === "number" ? "rounded-full p-1" : "rounded-md px-2.5 py-0.5";
 
   return (
     <span
-      className={`inline-flex items-center justify-center text-xs font-medium ${colorClasses} ${outlineClass} ml-2 ${heightClass} ${shapeAndPadding}`}
+      className={`inline-flex items-center justify-center text-xs font-medium ${colorClasses} ${outlineClass} ml-2 ${classMeasures} ${shapeAndPadding}`}
     >
       {displayContent}
     </span>
