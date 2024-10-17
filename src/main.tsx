@@ -3,7 +3,6 @@ import "./index.css";
 import DatePicker from "./components/DatePicker";
 import Button from "./components/Button";
 import Accordion from "./components/Accordion";
-import { useForm } from "react-hook-form";
 import ReactDOM from "react-dom/client";
 import Badge from "./components/Badge";
 import { HiOutlineBell } from "react-icons/hi2";
@@ -27,8 +26,7 @@ const App = () => {
       transition: "ease-in-out" as const,
       detached: true,
     },
-    expanded: true,
-    onToggle: () => console.log("Toggled"),
+    expanded: false,
   };
 
   return (
@@ -70,6 +68,29 @@ const App = () => {
 
         <div className="flex flex-row">
           <Badge template="progress" content="Progress" style="empty" outline />
+        </div>
+        <div className="flex flex-row">
+          <Badge template="notification" content="5" type="number" outline />
+        </div>
+        <div className="flex flex-row">
+          <Badge
+            template="success"
+            content={0}
+            type="number"
+            compact
+            outline
+            showZero
+          />
+        </div>
+        <div className="flex flex-row">
+          <Badge
+            template="success"
+            style="filled"
+            content={35}
+            type="number"
+            outline
+            counterOverflow={9}
+          />
         </div>
       </div>
     </div>
