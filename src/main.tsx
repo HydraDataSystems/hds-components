@@ -24,7 +24,6 @@ const App = () => {
     body: {
       size: "normal" as const,
       transition: "ease-in-out" as const,
-      detached: true,
     },
     expanded: false,
   };
