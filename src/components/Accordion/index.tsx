@@ -1,6 +1,12 @@
-import { useRef, useState, useEffect, PropsWithChildren } from "react";
+import {
+  useRef,
+  useState,
+  useEffect,
+  PropsWithChildren,
+  useCallback,
+} from "react";
 import { HiChevronRight } from "react-icons/hi2";
-import { classNames } from "src/helpers";
+import { classNames } from "../../helpers";
 import { IconType } from "react-icons";
 
 enum Template {
@@ -46,7 +52,7 @@ export const Accordion = ({
   children,
 }: PropsWithChildren<AccordionProps>) => {
   const contentRef = useRef<HTMLDivElement>(null);
-  const [contentExpanded, setContentExpanded] = useState<boolean>(expanded);
+  const [contentExpanded, setContentExpanded] = useState<boolean>(false);
 
   const headerWithDefaults: Required<Omit<HeaderProps, "icon">> & {
     icon?: Required<HeaderProps["icon"]>;
@@ -72,29 +78,39 @@ export const Accordion = ({
   };
 
   useEffect(() => {
+    console.log(contentExpanded);
     setContentExpanded(expanded);
   }, [expanded]);
 
   useEffect(() => {
     if (contentRef.current) {
-      contentRef.current.style.height = contentExpanded
+      console.log("effect: ", contentExpanded);
+      console.log(contentRef.current.scrollHeight);
+      const height = contentExpanded
         ? `${contentRef.current.scrollHeight}px`
         : "0px";
+      console.log("height: ", height);
+      contentRef.current.style.height = height;
     }
   }, [contentExpanded]);
-
-  const onToggleClick = () => {
+  const onToggleClick = useCallback(() => {
     if (!disabled) {
-      setContentExpanded((prev) => !prev);
-      onToggle && onToggle();
+      setContentExpanded((prev) => {
+        const newState = !prev;
+
+        if (onToggle) onToggle();
+        console.log("newState: ", newState);
+        return newState;
+      });
     }
-  };
+  }, [disabled, onToggle]);
 
   const ChevronIcon = (
     <HiChevronRight
       className={classNames(
         contentExpanded ? "rotate-90" : "",
         "transition-transform duration-500",
+        bodyWithDefaults.transition,
         disabled ? "text-slate-400" : ""
       )}
     />
