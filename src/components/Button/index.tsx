@@ -32,7 +32,7 @@ export enum BtnStyle {
   white = "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
 }
 
-export const BASE_CLASS = "inline-flex items-center justify-center rounded border shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2";
+export const BASE_CLASS = "inline-flex items-center justify-center rounded-sm border shadow-xs focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2";
 export const DISABLED_CLASS = "border-transparent bg-gray-100 cursor-not-allowed text-gray-300";
 export const BUSY_CLASS = "border-transparent bg-gray-300 cursor-not-allowed text-gray-600";
 

@@ -212,7 +212,7 @@ const DatePicker = ({
           <input
             type="text"
             readOnly
-            className="cursor-pointer w-full pl-4 pr-10 leading-none rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
+            className="cursor-pointer w-full pl-4 pr-10 leading-none rounded-lg shadow-xs focus:outline-hidden focus:shadow-outline text-gray-600 font-medium"
             placeholder="Select date"
             value={format(selectedDate, "dd/MM/yyyy")}
             onClick={toggleDatepicker} />
@@ -241,7 +241,7 @@ const DatePicker = ({
         {showDatePicker && (
           <div
             ref={refs.setFloating}
-            className="bg-white rounded-lg shadow p-4 absolute z-50"
+            className="bg-white rounded-lg shadow-sm p-4 absolute z-50"
             style={{ top: y ?? 0, left: x ?? 0, position: strategy, width: "17rem" }}
           >
             <div className="flex justify-between items-center mb-2">
@@ -277,7 +277,7 @@ const DatePicker = ({
               {type === "date" && (
                 <div
                   onClick={showMonthPicker}
-                  className="flex-grow p-1 text-lg font-bold text-gray-800 cursor-pointer hover:bg-gray-200 rounded-lg"
+                  className="grow p-1 text-lg font-bold text-gray-800 cursor-pointer hover:bg-gray-200 rounded-lg"
                 >
                   <p className="text-center">
                     {format(datePickerHeaderDate, "MMMM")}
@@ -287,7 +287,7 @@ const DatePicker = ({
               {type !== "year" && (
                 <div
                   onClick={type === "month" ? () => setType("date") : showYearPicker}
-                  className="flex-grow p-1 text-lg font-bold text-gray-800 cursor-pointer hover:bg-gray-200 rounded-lg"
+                  className="grow p-1 text-lg font-bold text-gray-800 cursor-pointer hover:bg-gray-200 rounded-lg"
                 >
                   <p className="text-center">
                     {format(datePickerHeaderDate, "yyyy")}
@@ -297,7 +297,7 @@ const DatePicker = ({
               {type === "year" && (
                 <div
                   onClick={() => setType("date")}
-                  className="flex-grow p-1 text-lg font-bold text-gray-800 cursor-pointer hover:bg-gray-200 rounded-lg"
+                  className="grow p-1 text-lg font-bold text-gray-800 cursor-pointer hover:bg-gray-200 rounded-lg"
                 >
                   <p className="text-center">
                     {`${format(subYears(datePickerHeaderDate, 5), "yyyy")} - ${format(addYears(datePickerHeaderDate, 6), "yyyy")}`}

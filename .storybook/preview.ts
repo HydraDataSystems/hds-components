@@ -1,4 +1,3 @@
-import 'tailwindcss/tailwind.css';
 import { Preview } from '@storybook/react';
 
 const preview: Preview = {
