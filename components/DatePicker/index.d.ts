@@ -7,6 +7,6 @@ export type DatePickerProps = {
     isActionSelectedDate?: boolean;
     fullWidth?: boolean;
 };
-declare const DatePicker: ({ initialDate, formName, label, onChange, isActionSelectedDate, fullWidth, }: DatePickerProps) => import('../../../node_modules/react/jsx-runtime').JSX.Element;
+declare const DatePicker: ({ initialDate, formName, label, onChange, isActionSelectedDate, fullWidth, }: DatePickerProps) => import("react/jsx-runtime").JSX.Element;
 export default DatePicker;
 //# sourceMappingURL=index.d.ts.map
